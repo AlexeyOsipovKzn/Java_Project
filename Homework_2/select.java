@@ -12,7 +12,7 @@ public class select {
 
         Integer index = searchBuilder.lastIndexOf("and\"age\"=\"null\"");
         StringBuilder result = new StringBuilder(searchBuilder);
-        if (searchBuilder.indexOf("null") == -1) {
+        if (searchBuilder.indexOf("null") != -1) {
             searchBuilder = result.substring(0, index);
         }
 
