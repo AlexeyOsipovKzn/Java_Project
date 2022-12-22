@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class nameList {
     public static String[] str = {
@@ -36,6 +41,15 @@ public class nameList {
         }
 
         result.entrySet().removeIf(entry -> entry.getValue().equals(1));
+
+        result = result.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new));
 
         for (var el : result.entrySet()) {
             System.out.printf("Найденное совпадение: " + el.getKey() + " в колличестве: " + el.getValue() + "\n");
